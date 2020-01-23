@@ -1,19 +1,26 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import Axios from "axios";
+import PhotoPage from "./components/PhotoContainer/PhotoPage";
+import axios from "axios";
 
 function App() {
-  const [] = useState();
+  const [photo, setPhoto] = useState([]);
 
-  useEffect(function(){
-    Axios.get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY").then(response => {
-      console.log(response);
-    })
+  useEffect(() => {
+    axios
+      .get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+      .then(response => {
+        // console.log(response.data);
+        setPhoto(response.data);
+      })
+      .catch(error => {
+        console.log("Something went wrong:", error);
+      });
   }, []);
-  return (
-    <div className="App">
 
-      <PhotoPage />
+  return (
+    <div className='App'>
+      <PhotoPage parentPhotoData={photo} />
     </div>
   );
 }
