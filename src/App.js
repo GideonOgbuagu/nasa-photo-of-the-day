@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import PhotoPage from "./components/PhotoContainer/PhotoPage";
-import axios from "axios";
+// import img from "./assets/img/space-suit.jpg";
+import styled from "styled-components";
+
+const AppContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+`;
 
 function App() {
-  const [photo, setPhoto] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
-      .then(response => {
-        // console.log(response.data);
-        setPhoto(response.data);
-      })
-      .catch(error => {
-        console.log("Something went wrong:", error);
-      });
-  }, []);
-
   return (
-    <div className='App'>
-      <PhotoPage parentPhotoData={photo} />
-    </div>
+    <AppContainer>
+      <PhotoPage />
+    </AppContainer>
   );
 }
 
